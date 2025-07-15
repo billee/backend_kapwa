@@ -145,4 +145,4 @@ Create a single paragraph summary that captures all the key points, topics discu
     return jsonify({"summary": summary})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
