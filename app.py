@@ -6,6 +6,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from openai import OpenAI
 import logging
+import time
 
 load_dotenv()
 
@@ -28,6 +29,7 @@ openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def call_openai_llm(messages_for_llm):
     try:
+        start_time = time.time()
         chat_completion = openai_client.chat.completions.create(
             model="gpt-4.1-nano",
             messages=messages_for_llm,
@@ -35,6 +37,8 @@ def call_openai_llm(messages_for_llm):
             max_tokens=500,
         )
         llm_response = chat_completion.choices[0].message.content
+        end_time = time.time() # End timer
+        app.logger.info(f"OpenAI LLM call took {end_time - start_time:.2f} seconds.") # Log duration
         return llm_response
     except Exception as e:
         app.logger.error(f"Error calling OpenAI LLM: {e}")
