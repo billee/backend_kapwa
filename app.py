@@ -64,6 +64,11 @@ def chat():
     llm_response = call_openai_llm(openai_messages)
     return jsonify({"response": llm_response})
 
+@app.route('/')
+def health_check():
+    return jsonify({"status": "healthy", "message": "Flask app is running"})
+
+
 @app.route('/summarize_chat', methods=['POST'])
 def summarize_chat():
     data = request.json
